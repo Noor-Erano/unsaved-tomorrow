@@ -139,8 +139,8 @@ case 'listen':tick(s,1);say(s,[narr("门外传来细碎的键盘声。你下意�
 case 'checkpoint':retryNight(s);break;
 case 'askSenior':openPhone(s,'qian');break;case 'openEditor':if(['office','dorm'].includes(s.loc)){s.panel='overleaf';s.tab='history'}else s.toast='电脑在工位和宿舍。';break;
 }}
-function replies(s){const all={group:[['groupAck',"收到老师。我明天先把数据版本和还没核对完的地方汇报一下。"]],advisor:[['advisorQuestion','老师，我对了两份结果，样本量不一样。我想先查清少了哪些记录，暂时不往汇报里放。'],...(s.flags.verified?[['advisorPlan','老师，找到那批被手动删掉的样本了，当时没有留下排除依据。两星那版我先撤下，明天把原始结果和修改记录一起带来。']]:[])],qian:[...(s.known.future?[['seniorAuthor',"千，文稿里突然有两颗星了。我记得见过这个结果，但今晚没上传过。21:47那次更新是你做的吗？"]]:[]),...(s.flags.verified?[['seniorSupport','我把手动删掉的那批找到了。明天有空吗？咱俩一起把清单再过一遍。']]:[])],wang:[['wangWhere',"你还在楼里吗？我刚听见那边有动静。"],...(s.flags.chair?[['wangChair',"我确认一下，对面那把椅子今晚一直空着，是吧？"]]:[]),...(s.flags.forged?[['wangDeny','刚才那句“明天你陪你核对”不是我发的。']]:[])],ruan:[['ruanTalk',"……吃了。几块饼干，四舍五入算晚饭。"],['ruanThanks',"先不说我了，你最后吃的什么？我感觉我已经快忘了正常晚饭长什么样。"],['ruanVideo',"你刚发那个视频是什么啊？我这边怎么只有一张猫的封面。"]],qianSocial:[['qianInfo',"你转我的那个我看看吧。最近看自己的东西看得有点烦，想换换口味。"],['qianPressure',"你怎么又有新消息了……我还在改同一张表，感觉大家都在往前跑。"]],shidi:[['shidiThanks',"谢谢师弟！明天接头真不够我再来借。"]]};return[...(all[s.thread]||[]),...(s.thread==='qian'?all.qianSocial:[])].filter(([id])=>!s.replyFlags[id])}
-function reply(s,id){const r=replies(s).find(x=>x[0]===id);if(!r)return;s.replyFlags[id]=true;msg(s,s.thread,'我',r[1]);tick(s,1);const a={groupAck:['师弟',"收到师姐，会议室我刚确认过了。投影线也带着，明天应该不会再跟设备斗智斗勇。"],advisorQuestion:['导师',"先把删了哪些样本、为什么删查清楚，别急着解释那两颗星。我今晚没改正文，待核实的批注也先别关。"],advisorPlan:['导师',"行。明天先告诉我哪几行出了问题、你打算怎么核，不用今晚赶着给出全部答案。"],seniorAuthor:['千',"不是我改的。我最后一次动它是昨天 20:54，老师今晚也没提交正文。21:47 那条挂的是你名字，我把记录留着了。"],seniorSupport:['千',"没问题，明天一起对。你先把原文件留好，咱们从被删的那批开始，别急着连夜把所有东西翻一遍。"],wangWhere:['王光耀',s.time<WANG_LEAVES?"还在这层，正打算去接水。你来了直接进去就行，靠窗那个位置我给你挪过了。":s.flags.wangHome?"我刚到宿舍，电脑才放下。你呢，到家没有？":s.flags.wangHeadingHome?"还在路上，骑车呢。等我停下来再回你，别担心。":s.flags.wangSafe?"我在正门口。后门那边有人敲，别过去，也别开门，听见没？":"没发出去。王光耀的头像刚还亮着，现在忽然暗了。你又点了一次对话框，还是没有新消息。"],wangChair:['王光耀',"没人坐过，一直空着。外套在那儿挂好几天了，我也没动。怎么突然问这个？"],wangDeny:['王光耀',"我当时看着你呢，你确实没碰手机。先别删那条，我总觉得不太对劲。"],ruanTalk:['软',"饼干博士，我建议你下一篇就研究“饼干作为正餐的可行性”。对照组记得安排一碗热面。"],ruanThanks:['软',"我在两家面馆之间反复横跳。一家起送价像融资门槛，一家配送费像要横跨半个中国。你快替我拍板。"],ruanVideo:['软',"一只猫把爪子洗得可认真了，洗完转头一脚踩进水碗。配字还写“测试全部通过，准备上线”。你看看像不像你。"],qianInfo:['千',"有个研究助理的实习，做文献和数据清理，时间听说挺灵活。还有那个应用微观工作坊，我都扔给你了，你哪天闲了再翻。"],qianPressure:['千',"你看到的都是我好意思往外发的东西。我卡住的时候也不发朋友圈啊。上次还是你帮我查出了那个问题呢。"],shidiThanks:['师弟',"没问题师姐，我会早点来试一遍投屏。对了，今天又刷到一篇新论文，越看越烧心……明天发群里一起烧。"]};msg(s,s.thread,...a[id]);if(id==='seniorAuthor')evidence(s,'author',"千确认的作者记录","千最后改动是昨天；老师今晚没动正文。那次莫名其妙的编辑，却实实在在挂在我的账号下。");if(['seniorSupport','advisorPlan'].includes(id)){s.flags.support=true;evidence(s,'support',"已经把核查计划发出去了","至少这回，我没把没弄清的问题装成已经处理完。")}if(id==='wangDeny')evidence(s,'forged',"一句不对劲的人称","“明天你陪你核对”从我的账号发出，却不是我发的。它连“我”和“你”都没分清。")}
+function replies(s){const all={group:[['groupAck',"收到老师。我明天先把数据版本和还没核对完的地方汇报一下。"]],advisor:[['advisorQuestion','老师，我对了两份结果，样本量不一样。我想先查清少了哪些记录，暂时不往汇报里放。'],...(s.flags.verified?[['advisorPlan','老师，找到那批被手动删掉的样本了，当时没有留下排除依据。两星那版我先撤下，明天把原始结果和修改记录一起带来。']]:[])],qian:[...(s.known.future?[['seniorAuthor',"千，文稿里突然有两颗星了。我记得见过这个结果，但今晚没上传过。21:47那次更新是你做的吗？"]]:[]),...(s.flags.verified?[['seniorSupport','我把手动删掉的那批找到了。明天有空吗？咱俩一起把清单再过一遍。']]:[])],wang:[['wangWhere',"你还在楼里吗？我刚在这层听见一点动静。"],...(s.flags.chair?[['wangChair',"我确认一下，对面那把椅子今晚一直空着，是吧？"]]:[]),...(s.flags.forged?[['wangDeny','刚才那句“明天你陪你核对”不是我发的。']]:[])],ruan:[['ruanTalk',"……吃了。几块饼干，四舍五入算晚饭。"],['ruanThanks',"先不说我了，你最后吃的什么？我感觉我已经快忘了正常晚饭长什么样。"],['ruanVideo',"最近有没有什么好笑的视频？给我发一个吧，我想换换脑子。"]],qianSocial:[['qianInfo',"你转我的那个我看看吧。最近看自己的东西看得有点烦，想换换口味。"],['qianPressure',"你怎么又有新消息了……我还在改同一张表，感觉大家都在往前跑。"]],shidi:[['shidiThanks',"谢谢师弟！明天接头真不够我再来借。"]]};return[...(all[s.thread]||[]),...(s.thread==='qian'?all.qianSocial:[])].filter(([id])=>!s.replyFlags[id])}
+function reply(s,id){const r=replies(s).find(x=>x[0]===id);if(!r)return;s.replyFlags[id]=true;msg(s,s.thread,'我',r[1]);tick(s,1);const a={groupAck:['师弟',"收到师姐，会议室我刚确认过了。投影线也带着，明天应该不会再跟设备斗智斗勇。"],advisorQuestion:['导师',"先把两个版本差在哪一步查清楚，暂时不要下结论。我今晚没改正文，待核实的批注也先别关。"],advisorPlan:['导师',"行。明天先告诉我哪几行出了问题、你打算怎么核，不用今晚赶着给出全部答案。"],seniorAuthor:['千',"不是我改的。我最后一次动它是昨天 20:54。你说的那条我打开历史看了，作者挂着你的名字。我先把记录留着。"],seniorSupport:['千',"没问题，明天一起对。你先把原文件留好，咱们从被删的那批开始，别急着连夜把所有东西翻一遍。"],wangWhere:['王光耀',s.flags.wangHome?"我已经到宿舍了，电脑刚放下。你那边怎么了？":s.flags.wangHeadingHome?"我正在回宿舍的路上，停好车才看到消息。你听见什么了？":s.flags.wangSafe?"我还在正门外，没回楼里。你听见的是哪边？":s.time<WANG_LEAVES?"还在这层，正收东西。你听见什么了？":"我已经离开工位了，没回去拿东西。你那边怎么了？"],wangChair:['王光耀',"没人坐过，一直空着。外套在那儿挂好几天了，我也没动。怎么突然问这个？"],wangDeny:['王光耀',"我只看见你账号发来这句话，不知道是谁发的。先别删，时间还在上面。"],ruanTalk:['软',"饼干博士，我建议你下一篇就研究“饼干作为正餐的可行性”。对照组记得安排一碗热面。"],ruanThanks:['软',"我在两家面馆之间反复横跳。一家起送价像融资门槛，一家配送费像要横跨半个中国。你快替我拍板。"],ruanVideo:['软',"一只猫把爪子洗得可认真了，洗完转头一脚踩进水碗。配字还写“测试全部通过，准备上线”。你看看像不像你。"],qianInfo:['千',"有个研究助理的实习，做文献和数据清理，时间听说挺灵活。还有那个应用微观工作坊，我都扔给你了，你哪天闲了再翻。"],qianPressure:['千',"你看到的都是我好意思往外发的东西。我卡住的时候也不发朋友圈啊。上次还是你帮我查出了那个问题呢。"],shidiThanks:['师弟',"没问题师姐，我会早点来试一遍投屏。对了，今天又刷到一篇新论文，越看越烧心……明天发群里一起烧。"]};if(s.flags[s.thread+'Lost']||(s.thread==='wang'&&s.flags.wangMissing)){s.toast='消息发出后，没有等到新的回复。';return;}msg(s,s.thread,...a[id]);if(id==='seniorAuthor')evidence(s,'author',"千确认的作者记录","千确认自己最后改动是昨天；她查看了那条历史记录，作者显示为我。她没有确认导师的操作。");if(['seniorSupport','advisorPlan'].includes(id)){s.flags.support=true;evidence(s,'support',"已经把核查计划发出去了","至少这回，我没把没弄清的问题装成已经处理完。")}if(id==='wangDeny')evidence(s,'forged',"一句不对劲的人称","“明天你陪你核对”从我的账号发出，却不是我发的。它连“我”和“你”都没分清。")}
 function spots(s){const p=(id,label,x,y,w=10,h=14)=>({id,label,x,y,w,h}),clock=p('clock','看时间',95,6,7,9);const map={office:[p('computer','电脑 / Overleaf',24,55,20,22),p('chair','对面的空椅',34,45,12,15),p('person',s.time<WANG_LEAVES?'王光耀':'已经收空的位置',63,40),p('door','去走廊',88,25,12,34)],corridor:[p('office','共享工位',17,45,20,38),p('tea','接水区',34,48),p('notice','组会安排',41,35),p('mentor','导师办公室',88,42,13,30),p('parking','电梯 / 下楼',57,41,10,20)],mentor:[p('knock','敲门',89,49,12,30),p('door','返回走廊',49,73,25,20)],tea:[p('water',s.time<WANG_LEAVES?'接水 / 王光耀':'饮水机',18,47,22,45),p('reflection','金属挡板',49,31,30,26),p('door','返回走廊',87,41,18,45)],parking:[p('scooter','骑电动车 · 18 分钟',26,64,30,40),p('bicycle','骑共享单车 · 30 分钟',70,65,27,40),p('corridor','回到楼上',43,40,20,30)],road:[p('signal','红绿灯与水洼',12,27,17,29),p('front','过灯前右拐 · 正门',82,58,26,30),p('gate','直行穿过高架 · 小门',44,47,28,27),p('office','回院楼',7,78,10,16)],gate:[p('reader','小门刷卡器',49,46,18,22),p('front','退回路口走正门',82,57,24,28),p('office','回院楼',9,80,12,16)],dorm:[p('bag','电脑包',14,81,11,16),p('cup',s.flags.returnedHome?'桌左侧的水杯':'桌右侧的水杯',s.flags.returnedHome?18:39,s.flags.returnedHome?63:59,7,10),p('computer',s.flags.returnedHome?'打开合着的旧电脑':'电脑 / Stata',22,57,15,17),p('drawer','书桌抽屉',37,73,13,20),p('window','窗玻璃',60,34,25,35),p('bed','上铺 / 休息',25,15,37,24),p('door','宿舍门',87,44,15,45)]};return [...map[s.loc],clock]}
 function valid(s,depth=0){if(!s||depth>1||s.version!==7||!Object.hasOwn(locations,s.loc)||!Number.isInteger(s.time)||s.time<1260||s.time>=1560||!Number.isInteger(s.round)||s.round<1)return false;
 if(!['notes','events','previous','path','previousPath','fired','chat','dialog','unlocked','log','cgSeen'].every(k=>Array.isArray(s[k])&&s[k].length<5000))return false;
@@ -340,11 +340,45 @@ function castAction(s,id){
  }
  finishHorror(s);
 }
+
+function contextualReplies(s,items){
+ const inBuilding=s.flags.visitedOffice&&['office','corridor','tea','mentor'].includes(s.loc);
+ if(s.thread==='wang'&&s.flags.wangMissing)return [];
+ items=items.filter(([id])=>{
+  if(id==='wangWhere')return inBuilding&&!!s.flags.chair;
+  if(id==='advisorQuestion')return !!s.known.future;
+  if(id==='wangDeny')return s.chat.some(m=>m.thread==='wang'&&m.who==='我'&&m.text==='明天你陪你核对。');
+  if(id==='yanReply')return !s.flags.visitedOffice&&!s.flags.yanMet&&!s.flags.yanLeft;
+  if(id==='requestDoor')return inBuilding;
+  if(id==='extendRuan')return s.flags.leftHome&&!s.flags.returnedHome;
+  if(id==='sendPacket')return !!s.flags.qianOffline&&s.loc==='dorm';
+  if(id==='forecastOld')return !!s.flags.qianTrusted;
+  return true;
+ });
+ // A live verification question takes precedence over unrelated topics.
+ if(s.thread==='qian'&&s.flags.challenge)return items.filter(([id])=>id.startsWith('answerFresh'));
+ const topics={ruan:['ruanTalk','ruanThanks','ruanVideo'],qian:['qianInfo','qianPressure']};
+ const social=topics[s.thread]||[];
+ const chosen=social.find(id=>s.replyFlags[id]);
+ const urgent=s.thread==='qian'&&(s.flags.packetSent||s.flags.qianTrusted)||s.thread==='ruan'&&(s.flags.ruanAtGate||s.flags.ruanMet);
+ if(chosen){
+  items=items.filter(([id])=>!social.includes(id));
+  if(!s.replyFlags['socialClosed:'+s.thread]&&!urgent){
+   const endings={ruanTalk:'行，我找点正经的吃。你也别饿着。',ruanThanks:'就吃面吧，别再替配送费做研究了。',ruanVideo:'哈哈哈，看完了。谢谢你，我继续理文件了。',qianInfo:'收到，我先收藏。等这边忙完再仔细看。',qianPressure:'也是。谢谢你，我先把眼前这一步弄清楚。'};
+   return [['closeSocial',endings[chosen]]];
+  }
+ }
+ if(urgent||s.thread==='qian'&&s.known.future)items=items.filter(([id])=>!social.includes(id));
+ return items;
+}
+
 function castReplies(s){const base=horrorReplies(s).filter(x=>!['inviteRuan'].includes(x[0]));if(s.flags[s.thread+'Lost'])return [];const extra=[];
  if(s.thread==='yan'){if(s.flags.yanTrusted&&!s.flags.yanWarned&&s.time<1325)extra.push(['yanWarn','说明侧门的危险，约定正常出口与报平安']);}
  if(s.thread==='qian'){if(s.time<1300)extra.push(['waitQian',s.known.qianWindow?'等到上次千回复的时刻':'先整理资料，等千回消息']);if(s.time>=1300&&s.time<1320&&!s.flags.qianTrusted){extra.push(['qianMark','告诉千先保留全样本']);if(prediction(s,'qian'))extra.push(['qianPredict','预告旧消息，请千关闭窗口共同验证']);}if(s.flags.qianTrusted&&!s.flags.qianOffline&&s.time<1355)extra.push(['qianOffline','约定不打开共享版本，改用离线核查']);}
- if(s.thread==='ruan'&&!s.flags.ruanMet&&s.time<1350&&!s.flags.ruanExtended)extra.push(['extendRuan','告诉她自己还没回去，请在正门多等一会儿']);return [...base,...extra];}
-function castReply(s,id){if(!castReplies(s).some(x=>x[0]===id))return;if(['yanWarn','waitQian','qianMark','qianPredict','qianOffline','extendRuan'].includes(id))castAction(s,id);else horrorReply(s,id);}
+ if(s.thread==='ruan'&&!s.flags.ruanMet&&s.time<1350&&!s.flags.ruanExtended)extra.push(['extendRuan','告诉她自己还没回去，请在正门多等一会儿']);return contextualReplies(s,[...base,...extra]);}
+function castReply(s,id){const selected=castReplies(s).find(x=>x[0]===id);if(!selected)return;
+ if(id==='closeSocial'){castCommit(s,id,s.thread,selected[1]);s.replyFlags['socialClosed:'+s.thread]=true;finishHorror(s);return;}
+if(['yanWarn','waitQian','qianMark','qianPredict','qianOffline','extendRuan'].includes(id))castAction(s,id);else horrorReply(s,id);}
 function castHotspot(s,id){if(s.dialog.length||s.panel||s.menu||s.ending)return;if(id==='yan'){castAction(s,'yanMeet');return;}if(['yanMark','yanPredict','ruanWitness','guardRuan'].includes(id)){castAction(s,id);return;}if(id==='ruan'){castAction(s,s.time<1340?'waitRuan':'ruanMeet');return;}if(id==='parking'&&s.loc==='corridor'&&s.flags.yanRoute){travel(s,'parking',2);finishHorror(s);return;}horrorHotspot(s,id);}
 function castSpots(s){const p=horrorSpots(s).filter(x=>!(x.id==='yan'&&(s.time<1295||s.time>=1305||s.flags.yanLost))&&!(x.id==='ruan'&&s.flags.ruanLost));if(['office','corridor'].includes(s.loc)&&s.flags.yanMet&&s.time<1305&&!s.flags.yanLost){p.push({id:'yanMark',label:'发消息提醒他别弄丢书签',x:16,y:20,w:15,h:12});if(prediction(s,'yan'))p.push({id:'yanPredict',label:'请燕日央拿着手机验证预告',x:33,y:20,w:18,h:12});}
  if(s.loc==='dorm'&&!s.flags.ruanLost){if(s.time>=1340&&!s.flags.ruanMet&&!p.some(x=>x.id==='ruan'))p.push({id:'ruan',label:'到正门接软桃',x:72,y:54,w:15,h:18});if(s.flags.ruanMet&&!s.flags.ruanVisitDeparted){p.push({id:s.flags.ruanTrusted?'guardRuan':'ruanWitness',label:s.flags.ruanTrusted?'和软桃确认门锁与备份':'向软桃解释门外的声音',x:68,y:25,w:19,h:14});}}
