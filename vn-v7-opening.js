@@ -14,6 +14,7 @@ function renderLogBattle(body){
 }
 function renderBigJob(body){
  const started=state.flags.bigStarted!==undefined;
+ if(!started && !state.flags.auditSaved && !state.known.runTooLate) return;
  if(started){body.append(el('p',(state.flags.bigReplayed?'旧操作自动启动：':'本轮运行：')+VN.fmt(state.flags.bigStarted)+' → '+VN.fmt(state.flags.bigFinishAt)+(state.flags.bigReady?' · 结果已算完，日志尚未保存':' · 正在计算'),'stata-caption'));}
  else if(state.known.runTooLate)body.append(el('p','上次等到回宿舍才运行，已经来不及。出门前留下的运行操作，也会像消息和门锁一样重演。','stata-caption'));
  body.append(button(started?(state.flags.bigReady?'完整重跑已完成':'留在电脑前，等完整重跑结束'):'启动全样本完整重跑 · 留在电脑前 20 分钟',()=>dispatch('runFullModel'),'secondary'));
