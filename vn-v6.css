@@ -1,0 +1,11 @@
+.encounter-retreat{position:absolute;bottom:24px;left:24px;z-index:3;padding:14px;background:#17212b;color:#fff;border:1px solid #8a9299;border-radius:8px}
+.scare-layer{position:fixed;inset:0;z-index:9999;background:#080609;overflow:hidden;pointer-events:none;animation:impact .65s ease-out both}
+.scare-layer img{width:100%;height:100%;object-fit:cover;transform:scale(1.7);filter:contrast(1.9) saturate(.25)}
+.scare-layer p{position:absolute;bottom:12%;width:100%;text-align:center;color:#f6efeb;letter-spacing:.3em;font-size:clamp(20px,4vw,58px);text-shadow:0 2px 10px #000}
+@keyframes impact{0%{transform:scale(1.1) translateX(-12px)}20%{transform:translateX(9px)}40%{transform:translateX(-5px)}100%{transform:none}}
+.reduce-motion .scare-layer{animation:none}.reduce-motion .scare-layer img{transform:none}
+@media(max-width:600px){.encounter-retreat{bottom:85px;left:12px;font-size:13px}.encounter-next{max-width:90%;font-size:13px}}
+
+.volume-setting{display:flex;gap:18px;align-items:center;justify-content:space-between;padding:16px 4px;color:#e2ded3}.volume-setting input{width:44%;accent-color:#a9bc9a}.volume-setting span{font-size:14px}
+
+.gate-state{position:absolute;left:2%;bottom:3%;z-index:5;padding:9px 13px;background:#132824ed;border:1px solid #76a38c;color:#d3e4d7;font-size:13px;pointer-events:none}.gate-state.locked{background:#301c1aed;border-color:#c57f65;color:#f2d3bd}

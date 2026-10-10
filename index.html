@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>未保存的明天 · 空着的座位</title><link rel="stylesheet" href="vn.css"><link rel="stylesheet" href="vn-v4.css"><link rel="stylesheet" href="vn-v5.css"><link rel="stylesheet" href="vn-v6.css"><link rel="stylesheet" href="vn-v7.css"></head>
+<body>
+<header class="hud"><span class="brand">未保存的明天</span><div class="hud-center"><span id="location">经济学院 · 共享工位</span><span id="time">21:00</span></div><span id="cycle">十月的某个夜晚</span></header>
+<main class="game"><section class="stage" aria-label="游戏场景">
+<div id="world" class="world"><img id="backdrop" src="assets/dorm-normal-v5.png" alt="晚上九点的宿舍"><div class="shade"></div><img id="ambient-figure" src="assets/heroine-student-v5.png" alt="" hidden><div class="grain"></div><div id="hotspots" aria-label="可调查的物品"></div><img id="portrait" class="portrait" alt="" hidden><div id="toast" role="status" hidden></div><div id="explore-tip" hidden>移动鼠标寻找物品　·　侧边手机可以查看与回复消息</div><div id="rewind" hidden aria-live="polite">21:00</div></div>
+<section id="dialogue" class="dialogue" aria-label="对话框"><span id="speaker"></span><div id="speech"><p id="line" aria-live="polite"></p><button id="next-line" aria-label="继续对话">继续 ▸</button></div><p id="choice-title"></p><div id="choices" hidden></div></section>
+</section>
+<nav class="side-tools" aria-label="随身工具">
+<button id="phone-button" class="tool" aria-label="手机"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M10 5h4M10 19h4"/></svg><span id="unread" class="badge" hidden></span></button>
+<button id="notes-button" class="tool" aria-label="线索笔记"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h14v18H5zM8 7h8M8 11h8M8 15h5M2 6h5M2 11h5M2 16h5"/></svg><span id="case-count" class="badge">0</span></button>
+<button id="hint-button" class="tool" aria-label="显示可调查位置" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7"/><path d="M12 1v5M12 18v5M1 12h5M18 12h5"/></svg></button>
+<button id="settings-button" class="tool" aria-label="设置与存档"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16M8 3v6M16 9v6M10 15v6"/></svg></button></nav>
+<div class="bottom-bar"><span>第一章 / 空着的座位</span><span id="save-status">本地存档</span></div>
+</main>
+<dialog id="overlay" class="overlay" aria-label="调查面板"><button id="close-panel" aria-label="关闭面板">×</button><div id="panel-body"></div></dialog>
+<section id="title-screen" class="title-screen" aria-label="标题界面"><div class="title-content"><span class="kicker">A NIGHT THAT HASN'T ENDED</span><h1>未保存的明天</h1><p>你只是想换个地方，继续写下去。<br>可那个空着的座位，似乎一直在等你。</p><div class="title-actions"><button id="title-audio" type="button">声音：开启 ♫</button><button id="new-game" class="primary">开始这一晚　→</button><button id="continue" hidden>继续上次的夜晚</button></div></div><span class="title-foot">0.7 · 四人赴约版 · 场景调查 / 视觉小说　｜　点击物品，查看手机，继续对话<br>包含突然近景、惊吓音效、人物消失与即死结局。可在设置关闭声音与惊吓动画。</span></section>
+<script src="vn-v7-engine.js"></script><script src="vn-v7-score-player.js"></script><script src="vn-v7-sound.js"></script><script src="vn-v7-ui.js"></script><script src="vn-v7-panels.js"></script>
+<script src="vn-v7-opening.js"></script></body></html>

@@ -1,0 +1,35 @@
+/* Keep the simulated phone light, independent of the game's dark theme. */
+.phone{color-scheme:light;scrollbar-color:#c5c5c5 #ededed}
+.phone #panel-body,.phone .phone-status,.phone .wx-head{background:#ededed}
+.phone .phone-status{display:flex;align-items:center;justify-content:space-between;min-height:40px;padding:8px 54px 8px 20px;color:#353535}
+.phone-indicators{display:flex;align-items:center;gap:9px}
+.phone-signal{display:flex;align-items:flex-end;gap:2px;height:12px}
+.phone-signal i{display:block;width:2px;background:currentColor;border-radius:1px;height:3px}
+.phone-signal i:nth-child(2){height:6px}
+.phone-signal i:nth-child(3){height:9px}
+.phone-signal i:nth-child(4){height:12px}
+.phone-battery{position:relative;width:20px;height:10px;border:1px solid currentColor;border-radius:2px}
+.phone-battery::before{content:'';position:absolute;inset:2px;background:currentColor;border-radius:1px}
+.phone-battery::after{content:'';position:absolute;right:-3px;top:2px;width:2px;height:4px;background:currentColor;border-radius:0 1px 1px 0}
+.phone *{scrollbar-color:#c5c5c5 #ededed;scrollbar-width:thin}
+.audit-command{display:flex;align-items:center;gap:10px;padding:12px;background:#f4f6f8;border-top:1px solid #aeb8c2;color:#202830}
+.audit-command input{flex:1;min-width:0;padding:10px;border:1px solid #9aa9b5;background:white;color:#142532;font:14px Consolas,monospace;color-scheme:light}
+.audit-command button{background:#315f77;color:white}.audit-help{padding:12px 18px;background:#e8edf2;color:#253d4d}
+.audit-help summary{cursor:pointer}.audit-hint{display:block;width:100%;text-align:left;white-space:pre-wrap;background:#fff;color:#29455a;font-size:12px;margin:7px 0;padding:8px}
+
+/* In-game save interruption: fixed controls, no strobing or real OS popups. */
+.log-battle{position:relative;margin:20px;padding:28px;border:2px solid #9c4e4e;background:#191e24;color:#eee;overflow:hidden}.log-battle h2{color:#ffcccc}.log-battle p{line-height:1.8}.log-battle button{position:relative;z-index:2;display:block;margin:16px 0;min-height:48px}.log-phantom{position:absolute;right:12px;top:12px;opacity:.12;max-width:45%;font-size:28px;pointer-events:none}.log-battle .muted{color:#c2c9d0}
+
+.log-window-bar{margin:-28px -28px 24px;padding:12px 20px;background:#593535;border-bottom:1px solid #bd6969;font-size:16px;letter-spacing:.04em}
+
+.log-battle h2{min-height:44px}.log-battle>p:first-of-type{min-height:64px}.log-battle .save-support{font-size:15px;color:#d9c99e;min-height:28px}
+
+/* Digital memo and physical drawer note remain separate objects. */
+.memo-page .memo-last.typed{color:#c5202a;font-size:1.2em;font-weight:700}
+.overlay.paper{background:#272723;color:#eee}.drawer-paper{max-width:600px;margin:28px auto;padding:38px 32px;background:#e8dcb4;color:#34312a;box-shadow:0 8px 24px #0005;transform:rotate(-1deg);border-top:1px solid #f6edd2;background-image:linear-gradient(0deg,transparent 49.5%,#bcae8440 50%,transparent 50.5%)}
+.drawer-paper p{font-family:KaiTi,STKaiti,serif;font-size:24px;line-height:1.9;margin:12px 0}.paper-caption{max-width:600px;margin:24px auto;line-height:1.8;color:#d8d4c9}
+
+.drawer-paper .paper-doubt{position:relative;display:inline-block;padding:4px 2px}.paper-doubt::before,.paper-doubt::after{content:"";position:absolute;left:-3%;width:106%;height:2px;background:#39362be0;top:48%;transform:rotate(-4deg);box-shadow:0 5px 0 #39362b99;pointer-events:none}.paper-doubt::after{top:59%;transform:rotate(3deg);height:3px;box-shadow:none}.drawer-paper .paper-denial{font-size:clamp(88px,16vw,132px);font-weight:900;line-height:1.1;color:#721718;text-align:center;transform:rotate(-7deg);margin:28px 0 10px;text-shadow:2px 1px 0 #52131366}
+
+.title-screen.after-te{background-image:linear-gradient(90deg,#17201ded 0%,#17201d9c 30%,transparent 62%),url('assets/cg-together-v9.png');background-position:center;background-size:cover}.after-te .title-content{max-width:580px;width:43%}.after-te .kicker{color:#e7c994}.reunion-caption{position:absolute;right:3%;bottom:90px;color:#fff4db;text-shadow:0 2px 6px #000;font-size:14px}.reunion-caption[hidden]{display:none}@media(max-width:700px){.title-screen.after-te{background-position:65% center;background-image:linear-gradient(0deg,#17201def, #17201d33 85%),url('assets/cg-together-v9.png')}.after-te .title-content{width:90%;max-width:none}.reunion-caption{bottom:130px;font-size:12px}}
+.after-te h1{font-size:clamp(28px,4vw,58px);letter-spacing:.07em;white-space:nowrap}.after-te .kicker{font-size:clamp(9px,1vw,13px);letter-spacing:.22em}
